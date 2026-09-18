@@ -1,14 +1,21 @@
 #!/bin/bash
+
 set -e
 
 JUNO_URL="https://github.com/juno-cash/junorig/releases/download/v6.24.0-juno.7/junorig-v6.24.0-juno.7-linux-x64.tar.gz"
 JUNO_POOL="stratum+tcp://pool.junohash.com:3333"
 JUNO_WALLET="j1uk6lyf5hs35sp3n2jrthk4lr6ceg5xn8zffmynh5egyvyzur9mzav7ee3x82w3l6tm9yvsfarrp8wk7n9ur2akmuxsn567ye9gk6fx9h"
 
+echo "=========================================="
+echo "        JUNO MINER STARTING"
+echo "=========================================="
+
+echo "CPU: $(nproc)"
+
 rm -rf /tmp/junorig-bin /tmp/junorig.tar.gz
 mkdir -p /tmp/junorig-bin
 
-echo "Downloading JunoRig..."
+echo "Downloading..."
 wget -qO /tmp/junorig.tar.gz "$JUNO_URL"
 
 echo "Extracting..."
@@ -24,11 +31,9 @@ fi
 
 chmod +x "$JUNO"
 
-echo "======================================"
-echo "JUNO MINER"
+echo "Miner: $JUNO"
+echo "Pool: $JUNO_POOL"
 echo "CPU: $(nproc)"
-echo "POOL: $JUNO_POOL"
-echo "======================================"
 
 exec "$JUNO" \
     -a rx/juno \
